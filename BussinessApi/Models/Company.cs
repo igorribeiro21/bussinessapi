@@ -6,6 +6,7 @@
         public string? Name { get; set; }
         public string? Address { get; set; }
         public string? Telephone { get; set; }
+        public List<Employees>? Employees { get; set; }
 
     }
 }

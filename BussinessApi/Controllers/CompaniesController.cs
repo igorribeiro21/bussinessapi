@@ -21,11 +21,13 @@ namespace BussinessApi.Controllers
         {
             try
             {
+                var data = await _appDbContext.Companies.Include(c => c.Employees).ToListAsync();                            
+
                 return Ok(
                 new
                 {
                     success = true,
-                    data = await _appDbContext.Companies.ToListAsync(),
+                    data,
                     message = "Chamada executada com sucesso"
                 }
                 );
