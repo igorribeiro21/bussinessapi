@@ -18,7 +18,7 @@ namespace BussinessApi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetCompanies()
-        {            
+        {
             try
             {
                 return Ok(
@@ -30,15 +30,15 @@ namespace BussinessApi.Controllers
                 }
                 );
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new
+                return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     success = false,
                     message = ex.Message
                 });
             }
-            
+
         }
 
         [HttpGet("{id}")]
@@ -48,7 +48,7 @@ namespace BussinessApi.Controllers
             {
                 var data = await _appDbContext.Companies.FindAsync(id);
 
-                if(data == null)
+                if (data == null)
                 {
                     return BadRequest(new
                     {
@@ -60,12 +60,12 @@ namespace BussinessApi.Controllers
                 return Ok(new
                 {
                     success = true,
-                    data                   
+                    data
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new
+                return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     success = false,
                     message = ex.Message
@@ -76,7 +76,7 @@ namespace BussinessApi.Controllers
         [HttpPost]
         public IActionResult CreateCompany([FromBody] Company company)
         {
-           try
+            try
             {
                 _appDbContext.Companies.Add(company);
                 _appDbContext.SaveChanges();
@@ -88,9 +88,76 @@ namespace BussinessApi.Controllers
                     company
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCompany([FromBody] Company company, int id)
+        {
+            try
+            {
+                var validationCompany = _appDbContext.Companies.SingleOrDefault(x => x.Id == id);
+
+                if (validationCompany == null)
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Não foi encontrado empresa com esse id"
+                    });
+
+                _appDbContext.Entry(validationCompany).CurrentValues.SetValues(company);
+                _appDbContext.SaveChanges();
+
+                return Ok(new
+                {
+                    success = true,
+                    data = company
+                });
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCompany(int id)
+        {
+            try
+            {
+                var validationCompany = _appDbContext.Companies.SingleOrDefault(x => x.Id == id);
+
+                if (validationCompany == null)
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Não foi encontrado empresa com esse id"
+                    });
+
+                _appDbContext.Companies.Remove(validationCompany);
+                _appDbContext.SaveChanges();
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Empresa excluída com sucesso"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
                 {
                     success = false,
                     message = ex.Message
@@ -99,3 +166,4 @@ namespace BussinessApi.Controllers
         }
     }
 }
+
