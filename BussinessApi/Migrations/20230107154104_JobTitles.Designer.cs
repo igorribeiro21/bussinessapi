@@ -4,6 +4,7 @@ using BussinessApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BussinessApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230107154104_JobTitles")]
+    partial class JobTitles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,35 +47,6 @@ namespace BussinessApi.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("BussinessApi.Models.Employees", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("JobTitlesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("JobTitlesId");
-
-                    b.ToTable("Employees");
-                });
-
             modelBuilder.Entity("BussinessApi.Models.JobTitles", b =>
                 {
                     b.Property<int?>("Id")
@@ -87,21 +61,6 @@ namespace BussinessApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JobTitles");
-                });
-
-            modelBuilder.Entity("BussinessApi.Models.Employees", b =>
-                {
-                    b.HasOne("BussinessApi.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
-                    b.HasOne("BussinessApi.Models.JobTitles", "JobTitles")
-                        .WithMany()
-                        .HasForeignKey("JobTitlesId");
-
-                    b.Navigation("Company");
-
-                    b.Navigation("JobTitles");
                 });
 #pragma warning restore 612, 618
         }
