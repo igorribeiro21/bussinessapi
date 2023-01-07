@@ -48,7 +48,7 @@ namespace BussinessApi.Controllers
         {
             try
             {
-                var data = await _appDbContext.Companies.FindAsync(id);
+                var data = await _appDbContext.Companies.Include(c => c.Employees).FirstOrDefaultAsync(c => c.Id == id);
 
                 if (data == null)
                 {
