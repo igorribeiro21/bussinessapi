@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5FeZpghd4YLCtfiOE5wu5cwOMqJaTAvP+l5cJi7fWycU8TWVeoHv/V+oR8S5A1OzkBcq2tqRHSm+OEmMBq6gPQ==",
+  "dgSpecHash": "f7+XThSTFudDmgz65FJM1vxGNP99eTQ62PZEPjB+LMGMZbc/E7bUleF+LHDCH9qjYJwpUkZ9Dnw6k/kuvOSJlQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\igor.ribeiro\\Projetos\\Igor\\BussinessApi\\BussinessApi\\BussinessApi\\BussinessApi.csproj",
   "expectedPackageFiles": [
@@ -45,6 +45,7 @@
     "C:\\Users\\igor.ribeiro\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\igor.ribeiro\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\igor.ribeiro\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\igor.ribeiro\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\igor.ribeiro\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\igor.ribeiro\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\igor.ribeiro\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
