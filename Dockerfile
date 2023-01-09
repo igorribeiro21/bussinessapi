@@ -19,6 +19,7 @@ RUN dotnet publish "BussinessApi.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN useradd --uid $(shuf -i 2000-65000 -n 1) app
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet BussinessApi.dll
 #ENTRYPOINT ["dotnet", "BussinessApi.dll"]
 #RUN dotnet run
