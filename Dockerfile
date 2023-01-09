@@ -19,6 +19,6 @@ RUN dotnet publish "BussinessApi.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-#CMD ASPNETCORE_URLS=http://*:$PORT dotnet BussinessApi.dll
-ENTRYPOINT ["dotnet", "BussinessApi.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet BussinessApi.dll
+#ENTRYPOINT ["dotnet", "BussinessApi.dll"]
 #RUN dotnet run
