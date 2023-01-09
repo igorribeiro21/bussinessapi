@@ -21,7 +21,14 @@ namespace BussinessApi.Controllers
         {
             try
             {
-                var data = await _appDbContext.Companies.Include(c => c.Employees).ToListAsync();                            
+                var data = await _appDbContext.Companies.Include(c => c.Employees).ToListAsync();
+
+                data.ForEach(company => {
+                    company.Employees.ForEach(e =>
+                    {
+                        e.JobTitles = _appDbContext.JobTitles.FirstOrDefault(x => x.Id == e.JobTitlesId);
+                    });
+                });
 
                 return Ok(
                 new
@@ -58,6 +65,12 @@ namespace BussinessApi.Controllers
                         message = "Não foi encontrado empresa com esse id"
                     });
                 }
+
+                data.Employees.ForEach(e =>
+                {
+                    e.JobTitles = _appDbContext.JobTitles.FirstOrDefault(x => x.Id == e.JobTitlesId);
+                });
+                
 
                 return Ok(new
                 {
