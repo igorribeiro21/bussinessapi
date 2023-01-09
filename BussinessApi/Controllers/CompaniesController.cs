@@ -76,18 +76,31 @@ namespace BussinessApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCompany([FromBody] Company company)
+        public IActionResult CreateCompany([FromBody] CompanyCreateUpdate company)
         {
             try
             {
-                _appDbContext.Companies.Add(company);
+                Company companyCreate = new Company()
+                {                    
+                    Name = company.Name,
+                    Street = company.Street,
+                    City = company.City,
+                    Complement = company.Complement,
+                    Neighborhood = company.Neighborhood,
+                    Number = company.Number,
+                    State = company.State,
+                    Telephone = company.Telephone,
+                    Zipcode = company.Zipcode
+                };
+
+                _appDbContext.Companies.Add(companyCreate);
                 _appDbContext.SaveChanges();
 
                 return CreatedAtAction(null, new
                 {
                     success = true,
                     message = "Empresa criada com sucesso",
-                    company
+                    company = companyCreate
                 });
             }
             catch (Exception ex)
@@ -101,10 +114,10 @@ namespace BussinessApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateCompany([FromBody] Company company, int id)
+        public IActionResult UpdateCompany([FromBody] CompanyCreateUpdate company, int id)
         {
             try
-            {
+            {                
                 var validationCompany = _appDbContext.Companies.SingleOrDefault(x => x.Id == id);
 
                 if (validationCompany == null)
@@ -114,13 +127,27 @@ namespace BussinessApi.Controllers
                         message = "Não foi encontrado empresa com esse id"
                     });
 
-                _appDbContext.Entry(validationCompany).CurrentValues.SetValues(company);
+                Company companyUpdate = new Company()
+                {
+                    Id = id,
+                    Name = company.Name != null ? company.Name : validationCompany.Name,
+                    Street = company.Street != null ? company.Street : validationCompany.Street,
+                    City = company.City != null ? company.City : validationCompany.City,
+                    Complement = company.Complement != null ? company.Complement : validationCompany.Complement,
+                    Neighborhood = company.Neighborhood != null ? company.Neighborhood : validationCompany.Neighborhood,
+                    Number = company.Number != 0 ? company.Number : validationCompany.Number,
+                    State = company.State != null ? company.State : validationCompany.State,
+                    Telephone  = company.Telephone != null ? company.Telephone : validationCompany.Telephone,
+                    Zipcode = company.Zipcode != 0 ? company.Zipcode : validationCompany.Zipcode
+                };                
+
+                _appDbContext.Entry(validationCompany).CurrentValues.SetValues(companyUpdate);
                 _appDbContext.SaveChanges();
 
                 return Ok(new
                 {
                     success = true,
-                    data = company
+                    data = companyUpdate
                 });
             }
             catch (Exception ex)
